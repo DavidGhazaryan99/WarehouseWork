@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Itenso.TimePeriod;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,10 @@ namespace WarehouseWork.Business_Logic
                 {
                     item.manufactured = await _context.Manufactureds.Where(m => m.id == item.manufacturedid).FirstAsync();
                     item.manufactured.country = await _context.Countries.Where(m => m.id == item.manufactured.countryid).FirstAsync();
+                    await DiscountsDependingSeason(item.id);
+                    DateTime now = new DateTime(2022, 09, 20);
+                    if (item.StartDiscountsDependingSeasonDay < now && item.LastDiscountsDependingSeasonDay > now)
+                        item.price = item.price - (item.price * Convert.ToDecimal(item.discountPercentage) / 100);
                 }
                 return products;
             }
@@ -109,6 +114,67 @@ namespace WarehouseWork.Business_Logic
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return product;
+        }
+        public async Task DiscountsDependingSeason(int id)
+        {
+            try
+            {
+                Product prod = await _context.Products.Where(p => p.id == id).FirstOrDefaultAsync();
+                prod.manufactured = await _context.Manufactureds.Where(m => m.id == prod.manufacturedid).FirstAsync();
+                prod.manufactured.country = await _context.Countries.Where(m => m.id == prod.manufactured.countryid).FirstAsync();
+                if (prod.LastDiscountsDependingSeasonDay != null && prod.LastDiscountsDependingSeasonDay < DateTime.Now)
+                {
+                    var data = Convert.ToDateTime(prod.LastDiscountsDependingSeasonDay);
+                    DateDiff dateDiff = new DateDiff(data, DateTime.Now);
+                }
+                else if (prod.LastDiscountsDependingSeasonDay == null)
+                {
+                    DateTime start = new DateTime();
+                    DateTime end = new DateTime();
+                    var month = prod.registrationDate.Month;
+                    if (month <= 3)
+                    {
+                        var now = DateTime.Now;
+                        start = new DateTime(now.Year, 3, 15);
+                        end = new DateTime(now.Year, 3, 25);
+                        prod.StartDiscountsDependingSeasonDay = start;
+                        prod.LastDiscountsDependingSeasonDay = end;
+                    }
+                    else if (month <= 6)
+                    {
+                        var now = DateTime.Now;
+                        start = new DateTime(now.Year, 6, 15);
+                        end = new DateTime(now.Year, 6, 25);
+                        prod.StartDiscountsDependingSeasonDay = start;
+                        prod.LastDiscountsDependingSeasonDay = end;
+                    }
+                    else if (month <= 9)
+                    {
+                        var now = DateTime.Now;
+                        start = new DateTime(now.Year, 9, 15);
+                        end = new DateTime(now.Year, 9, 25);
+                        prod.StartDiscountsDependingSeasonDay = start;
+                        prod.LastDiscountsDependingSeasonDay = end;
+                    }
+                    else if (month <= 12)
+                    {
+                        var now = DateTime.Now;
+                        start = new DateTime(now.Year, 12, 15);
+                        end = new DateTime(now.Year, 12, 25);
+                        prod.StartDiscountsDependingSeasonDay = start;
+                        prod.LastDiscountsDependingSeasonDay = end;
+                    }
+                    prod.StartDiscountsDependingSeasonDay = start;
+                    prod.LastDiscountsDependingSeasonDay = end;
+                    _context.Attach(prod);
+                    _context.Entry(prod).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

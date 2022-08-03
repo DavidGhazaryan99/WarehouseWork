@@ -5,12 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20220803120947_Discounts.cs" />
+    <Compile Remove="Migrations\20220803120947_Discounts.Designer.cs" />
+    <Compile Remove="Migrations\20220803121657_Discounts.cs" />
+    <Compile Remove="Migrations\20220803121657_Discounts.Designer.cs" />
+    <Compile Remove="Migrations\20220803124010_Discounts.cs" />
+    <Compile Remove="Migrations\20220803124010_Discounts.Designer.cs" />
+    <Compile Remove="Migrations\20220803132107_Discounts.cs" />
+    <Compile Remove="Migrations\20220803132107_Discounts.Designer.cs" />
+    <Compile Remove="Migrations\20220803132129_Discounts.cs" />
+    <Compile Remove="Migrations\20220803132129_Discounts.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.27">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="TimePeriodLibrary.NET" Version="2.1.1" />
   </ItemGroup>
 
 </Project>
