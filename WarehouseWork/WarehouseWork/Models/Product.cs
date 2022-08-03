@@ -20,7 +20,7 @@ namespace WarehouseWork.Models
         [DisplayName("Category")]
         public string category { get; set; }
         [Required]
-        [Range(1, (7.9 * 1028))]
+        [Range(0.1, (7.9 * 1028))]
         [DisplayName("Price")]
         public decimal price { get; set; }
         [Required]

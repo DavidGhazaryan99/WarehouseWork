@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jyfX6pPMUURFQ8wXajx8p3CsXQQ9RXo0in/jmY0lSWDogtZyCdCNH80klZnnuBJVT3bnOeXwzToT8DIPyvjH0w==",
+  "dgSpecHash": "cNMYCBC6+fi3LEbERNYER2KruDPqtnCIclpzq6cD1/xIs5KBOZkfmkNM+XBOl3f1GuMPBI7C9v5e1TtdoW3z/Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Zemfira\\source\\repos\\WarehouseWork\\WarehouseWork\\WarehouseWork.csproj",
+  "projectFilePath": "C:\\Users\\Zemfira\\Documents\\GitHub\\WarehouseWork\\WarehouseWork\\WarehouseWork\\WarehouseWork.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Zemfira\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Zemfira\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.1\\microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
