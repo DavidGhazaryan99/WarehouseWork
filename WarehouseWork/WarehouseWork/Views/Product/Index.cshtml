@@ -1,0 +1,99 @@
+﻿@model IEnumerable<WarehouseWork.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+
+    Pager pager = new Pager();
+
+    int PageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        PageNo = pager.CurrentPage;
+    }
+}
+
+
+<p>
+    <a asp-action="Create" class="btn btn-sm btn-success m1-1">Create New</a>
+</p>
+
+<partial name="_pager" model="@pager" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.manufactured.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.manufactured.country.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.count)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.registrationDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.manufactured.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.manufactured.country.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.count)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.registrationDate)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-sm btn-info">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.id" class="btn btn-sm btn-primary ml-1">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-sm btn-danger ml-1">Delete</a>
+                    </div>
+                    @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_pager" model="@pager" />
