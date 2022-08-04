@@ -42,7 +42,6 @@ namespace WarehouseWork.Controllers
             {
                 var products = await _productLogic.GetProductList();
                 return View(products);
-
             }
             catch (Exception)
             {

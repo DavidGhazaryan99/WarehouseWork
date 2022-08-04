@@ -18,7 +18,7 @@ namespace WarehouseWork.Business_Logic
             _context = context;
         }
 
-        public async Task<List<Product>> GetProductList(int pg = 1)
+        public async Task<List<Product>> GetProductList()
         {
             try
             {
