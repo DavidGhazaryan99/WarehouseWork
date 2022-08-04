@@ -28,13 +28,13 @@ namespace WarehouseWork.Business_Logic
                     item.manufactured = await _context.Manufactureds.Where(m => m.id == item.manufacturedid).FirstAsync();
                     item.manufactured.country = await _context.Countries.Where(m => m.id == item.manufactured.countryid).FirstAsync();
                     await DiscountsDependingSeason(item.id);
-                    DateTime now = DateTime.Now  /*new DateTime(2022, 09, 20)*/;
+                    DateTime now = DateTime.Now;
                     if (item.StartDiscountsDependingSeasonDay < now && item.LastDiscountsDependingSeasonDay > now)
                         item.price = item.price - (item.price * Convert.ToDecimal(item.discountPercentage) / 100);
                 }
                 return products;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -63,7 +63,6 @@ namespace WarehouseWork.Business_Logic
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -106,7 +105,6 @@ namespace WarehouseWork.Business_Logic
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
