@@ -28,7 +28,7 @@ namespace WarehouseWork.Business_Logic
                     item.manufactured = await _context.Manufactureds.Where(m => m.id == item.manufacturedid).FirstAsync();
                     item.manufactured.country = await _context.Countries.Where(m => m.id == item.manufactured.countryid).FirstAsync();
                     await DiscountsDependingSeason(item.id);
-                    DateTime now = new DateTime(2022, 09, 20);
+                    DateTime now = DateTime.Now  /*new DateTime(2022, 09, 20)*/;
                     if (item.StartDiscountsDependingSeasonDay < now && item.LastDiscountsDependingSeasonDay > now)
                         item.price = item.price - (item.price * Convert.ToDecimal(item.discountPercentage) / 100);
                 }
@@ -54,31 +54,61 @@ namespace WarehouseWork.Business_Logic
         }
         public async Task<Product> Details(int id)
         {
-            Product prod = await _context.Products.Where(p => p.id == id).FirstOrDefaultAsync();
-            prod.manufactured = await _context.Manufactureds.Where(m => m.id == prod.manufacturedid).FirstAsync();
-            prod.manufactured.country = await _context.Countries.Where(m => m.id == prod.manufactured.countryid).FirstAsync();
-            return prod;
+            try
+            {
+                Product prod = await _context.Products.Where(p => p.id == id).FirstOrDefaultAsync();
+                prod.manufactured = await _context.Manufactureds.Where(m => m.id == prod.manufacturedid).FirstAsync();
+                prod.manufactured.country = await _context.Countries.Where(m => m.id == prod.manufactured.countryid).FirstAsync();
+                return prod;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         public async Task<Product> EditId(int id)
         {
-            Product prod = await _context.Products.Where(p => p.id == id).FirstOrDefaultAsync();
-            prod.registrationDate = DateTime.Now;
-            prod.manufactured = await _context.Manufactureds.Where(m => m.id == prod.manufacturedid).FirstAsync();
-            prod.manufactured.country = await _context.Countries.Where(m => m.id == prod.manufactured.countryid).FirstAsync();
-            return prod;
+            try
+            {
+                Product prod = await _context.Products.Where(p => p.id == id).FirstOrDefaultAsync();
+                prod.registrationDate = DateTime.Now;
+                prod.manufactured = await _context.Manufactureds.Where(m => m.id == prod.manufacturedid).FirstAsync();
+                prod.manufactured.country = await _context.Countries.Where(m => m.id == prod.manufactured.countryid).FirstAsync();
+                return prod;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public async Task Edit(Product product)
         {
-            _context.Products.Attach(product);
-            _context.Entry(product).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Products.Attach(product);
+                _context.Entry(product).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public async Task<Product> DeleteId(int id)
         {
-            Product product = await _context.Products.Where(p => p.id == id).FirstOrDefaultAsync();
-            product.manufactured = await _context.Manufactureds.Where(m => m.id == product.manufacturedid).FirstAsync();
-            product.manufactured.country = await _context.Countries.Where(m => m.id == product.manufactured.countryid).FirstAsync();
-            return product;
+            try
+            {
+                Product product = await _context.Products.Where(p => p.id == id).FirstOrDefaultAsync();
+                product.manufactured = await _context.Manufactureds.Where(m => m.id == product.manufacturedid).FirstAsync();
+                product.manufactured.country = await _context.Countries.Where(m => m.id == product.manufactured.countryid).FirstAsync();
+                return product;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         public async Task Delete(Product product)
         {
